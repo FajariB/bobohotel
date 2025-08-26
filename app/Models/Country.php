@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    use HasFactory;
-    //
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name', //ini diisi user ketika create country
+        'slug', //ini diisi otomatis pake observer
+    ];
+
+    public function hotels(){
+        return $this->hasMany(Hotel::class);    //1 country bisa punya banyak hotel
+    }
+
 }

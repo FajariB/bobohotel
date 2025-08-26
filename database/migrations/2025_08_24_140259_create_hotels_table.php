@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('link_gmaps');
             $table->foreignId('city_id')->constrained()->onDetele('cascade');
             $table->foreignId('country_id')->constrained()->onDetele('cascade');
+            $table->tinyInteger('star_rating'); //1-5
             $table->softDeletes();
             $table->timestamps();
         });
