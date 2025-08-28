@@ -50,7 +50,7 @@ class RolePermissionSeeder extends Seeder
 
         $user = User::create([ //ini buat user super admin default
             'name' => 'Super Admin',
-            'email' => 'super@admin.com',
+            'email' => 'admin@bobo.com',
             'password' => bcrypt('password'), // ganti dengan password yang diinginkan
             'avatar' => 'default.png',
         ]);

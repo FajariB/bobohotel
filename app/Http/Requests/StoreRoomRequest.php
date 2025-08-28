@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HotelBooking;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRoomRequest extends FormRequest

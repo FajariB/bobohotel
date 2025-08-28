@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HotelBooking;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateHotelRequest extends FormRequest
@@ -24,7 +25,7 @@ class UpdateHotelRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:500'],
-            'link_gmaps' => ['required', 'url', 'max:500'],
+            'link_gmaps' => ['required', 'string', 'max:500'],
             'thumbnail' => ['sometimes', 'image', 'mimes:png, jpg, jpeg','max:5120'], //pake sometimes karena tidak wajib diupdate, maksimal 5MB
             'photo.*' => ['required', 'image', 'mimes:png, jpg, jpeg','max:10240'], //maksimal 10MB
             'country_id' => ['required', 'integer'],
