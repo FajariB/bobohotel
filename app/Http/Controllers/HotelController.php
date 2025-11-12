@@ -6,6 +6,7 @@ use App\Models\Hotel;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Http\Requests\StoreHotelRequest;
+use App\Http\Requests\UpdateHotelRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -85,15 +86,45 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        $countries = Country::orderByDesc('id')->get();
+        $cities = Country::orderByDesc('id')->get();
+        $star_rating = [1,2,3,4,5];
+        $latestPhotos = $hotel->photos()->orderByDesc('id')->take(3)->get(); //mengambil 3 foto terbaru dari relasi photos
+        return view('admin.hotels.edit', compact('hotel', 'countries', 'cities', 'latestPhotos')); //menampilkan view edit.blade.php dengan data hotel, countries, cities, dan latestPhotos
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Hotel $hotel)
+    public function update(UpdateHotelRequest $request, Hotel $hotel)
     {
-        //
+        DB::transaction(function () use ($request, $hotel) {
+            $validated = $request->validated();
+
+            if($request->hasFile('thumbnail')){
+                $thumbnailPath = //variabel untuk menyimpan path file thumbnail
+                $request->file('thumbnail')->store('thumbnails', 'public'); //menyimpan file thumbnail di storage/app/public/thumbnails/tanggal
+                $validated['thumbnail'] = $thumbnailPath; //menyimpan path file thumbnail di kolom thumbnail
+            }
+
+            $validated['slug'] = Str::slug($validated['name']);
+
+            $hotel->update($validated);
+
+            //digunakan untuk menyimpan multiple file photo pada hotel
+            if($request->hasFile('photos')){
+                foreach($request->file('photos') as $photo){ //looping setiap file photo yang diupload
+                    if ( $photo && $photo->isValid() ){ //cek apakah file photo valid
+                        $photoPath = $photo->store('hotel_photos', 'public'); //menyimpan file photo di storage/app/public/hotel_photos/tanggal
+                        $hotel->photos()->create([ //membuat relasi ke tabel hotel_photos dan membuat record baru
+                            'photo' => $photoPath,
+                        ]);
+                    }
+                }
+            }
+        });
+
+        return redirect()->route('admin.hotels.index')->with('success', 'Hotel update successfully.');
     }
 
     /**
@@ -101,6 +132,7 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete(); 
+        return redirect()->route('admin.hotels.index')->with('success', 'Hotel deleted successfully.');
     }
 }
