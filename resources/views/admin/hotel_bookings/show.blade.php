@@ -62,7 +62,7 @@
                         <div class="flex flex-col">
                             <p class="text-slate-500 text-sm">Email</p>
                             <h3 class="text-indigo-950 text-xl font-bold">
-                                {asdasdd
+                                asdasdd
                             </h3>
                         </div>
                     </div>

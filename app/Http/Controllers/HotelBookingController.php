@@ -12,7 +12,8 @@ class HotelBookingController extends Controller
      */
     public function index()
     {
-        //
+        $hotel_bookings = HotelBooking::with('hotel', 'user')->orderByDesc('id')->paginate(10);
+        return view('admin.hotel_bookings.index', compact('hotel_bookings'));
     }
 
     /**
@@ -20,7 +21,7 @@ class HotelBookingController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +29,9 @@ class HotelBookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            
+        });
     }
 
     /**

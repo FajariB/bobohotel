@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Hotel;
 
 use Illuminate\Database\Eloquent\Model;
 
 class HotelBooking extends Model
 {
-        use HasFactory, SoftDeletes;
+        use HasFactory;
 
         protected $fillable = [
             'user_id',

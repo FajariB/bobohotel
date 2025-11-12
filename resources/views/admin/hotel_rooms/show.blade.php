@@ -17,23 +17,23 @@
                         <img src=" " alt="" class="rounded-2xl object-cover w-[120px] h-[90px]">
                         <div class="flex flex-col">
                             <h3 class="text-indigo-950 text-xl font-bold">
-                                asdsad
+                                {{$hotel->name}}
                             </h3>
                         <p class="text-slate-500 text-sm">
-                            asdasdsa, asadsda
+                            {{$hotel->city->name}}, {{$hotel->country->name}}
                         </p>
                         </div>
                     </div> 
                     <div  class="hidden md:flex flex-col">
                         <p class="text-slate-500 text-sm">Price</p>
                         <h3 class="text-indigo-950 text-xl font-bold">
-                            Rp 1/night
+                            Rp {{number_format($hotel->getLowesRoomPrice(),0,'','.')}}
                         </h3>
                     </div>
                     <div  class="hidden md:flex flex-col">
                         <p class="text-slate-500 text-sm">Star</p>
                         <h3 class="text-indigo-950 text-xl font-bold">
-                            2 star
+                            {{$hotel->star_rating}} Stars
                         </h3>
                     </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">

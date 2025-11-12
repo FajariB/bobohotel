@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\City;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCityRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class StoreCityRequest extends FormRequest
     public function rules(): array 
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique'.City::class], //name harus diisi, string, max 255 karakter, dan unique di table cities kolom name
+            'name' => ['required', 'string', 'max:255', 'unique:cities,name'], //name harus diisi, string, max 255 karakter, dan unique di table cities kolom name
         ];
     }
 }

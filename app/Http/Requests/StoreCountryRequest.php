@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Country;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCountryRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class StoreCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique'.Country::class], //name harus diisi, string, max 255 karakter, dan unique di table countries kolom name
+            'name' => ['required', 'string', 'max:255', 'unique:countries,name'], //name harus diisi, string, max 255 karakter, dan unique di table countries kolom name
         ];
     }
 }
